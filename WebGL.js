@@ -121,8 +121,8 @@ function createBufferTexture (texture, width, height) {
     gl.bindTexture( gl.TEXTURE_2D, null);
 }
 
-imWidth = 512;
-imHeight = imWidth;
+var imWidth = 512;
+var imHeight = imWidth;
 var Textures = new Array();
 function initTextures() {
     Textures[0] = gl.createTexture();
@@ -207,6 +207,7 @@ function renderScene(shader, width, height) {
 
     // Draw the single quad
     gl.drawElements(gl.TRIANGLES, quadVertexIndexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
+    //gl.useProgram(null);
 }
 
 function updateShader(shader){
@@ -225,8 +226,8 @@ function updateShader(shader){
 
 var texw = imWidth;
 var texh = imHeight;
-var stepsize = 0;
-var texlevels = 65536.0;
+var stepsize = null;
+var texlevels = 65536;
 var lastRendered;
 var first = true;
 function tempName() {
@@ -237,22 +238,25 @@ function tempName() {
     gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, Textures[lastRendered], 0);
     renderScene(0, texw, texh);
 
-    stepsize = (texw > texh ? texw/2: texh/2);
-    while (stepsize > 1) {
+    stepsize = (texw > texh ? texw/2.0: texh/2.0) ;
+    while (stepsize > 0.5) {
         updateShader(1);
         gl.bindTexture(gl.TEXTURE_2D, Textures[lastRendered]);
         lastRendered = (lastRendered == 1 ? 2 : 1); // Swap 1 <-> 2
         // Swap which texture is attached to the FBO
         gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, Textures[lastRendered], 0);
         renderScene(1, texw, texh);
-        stepsize = stepsize / 2;
+        //console.log(stepsize);
+        stepsize = stepsize / 2.0;
     }
 
     gl.bindFramebuffer(gl.FRAMEBUFFER, null);
     gl.bindTexture(gl.TEXTURE_2D, Textures[lastRendered]);
 
+    stepsize = 0.0;
     updateShader(2);
     renderScene(2, texw, texh);
+
 }
 
 function tick() {
