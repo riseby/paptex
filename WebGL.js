@@ -208,7 +208,7 @@ function renderScene(shader, width, height) {
     gl.bindBuffer(gl.ARRAY_BUFFER, quadVertexTextureCoordBuffer);
     gl.vertexAttribPointer(shaderPrograms[shader].TextureCoord, quadVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
-    gl.activeTexture(gl.TEXTURE0);
+    //gl.activeTexture(gl.TEXTURE0);
     //gl.uniform1i(shaderPrograms[shader].texture, 0); // Texture unit 0
     //updateShader(shader)
 
@@ -279,6 +279,10 @@ function tick() {
 
 function shaderChanger(value){
     visShader = value;
+}
+
+function getSelectedShader(){
+    return visShader;
 }
 
 var xOffset = 0.0;
