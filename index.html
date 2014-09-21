@@ -15,46 +15,85 @@
       <canvas id="GLCanvas" width="512" height="512">  
             Your Browser Doesn't Support HTML5's Canvas.  
       </canvas>
+      
       <canvas id="textCanvas" width="128" height="128"></canvas>
+      
       <select onChange='shaderChanger(this.value)'>
         <option value='2'>Jump Flooding Algorithm - Distvector</option>
         <option value='4' selected='selected'>Anti aliasing</option>
         <option value='3'>Paptex</option>
       </select>
       
-      <input type='text' name='textureText'></input>
+      <select onChange='updateFont(this.value)'>
+        <option value='monospace' selected='selected'>Monospace</option>
+        <option value='serif'>Serif</option>
+        <option value='sans-serif'>Sans-serif</option>
+        <option>Font4</option>
+      </select>
+      
+      <textarea name='textureText'>Hello!</textarea>
+      
       <script>
-        $( 'input' ).keyup(function(event) { 
+        $( 'textarea' ).keyup(function(event) { 
           updateText(this.value);
-          updateInputTexture();
         });
       </script>
 
       <script type="text/javascript">
-        var canvas = document.getElementById('textCanvas');
-        var ctx = canvas.getContext('2d');
-        ctx.fillStyle = "#FFF"
-        ctx.fillRect(0,0,canvas.width, canvas.height);
-        var textToWrite = "HTML5 Rocks!";
-        var textSize = 12;
-        ctx.font = textSize+"pt monospace";
-        ctx.fillStyle = "#000";
-        ctx.textAlign = 'center';
-        ctx.fillText(textToWrite, canvas.width/2, canvas.height/2);
+      
+        var font = "monospace";
+        function updateFont(value) {
+          font = value;
+          renderCanvas();
+        }
 
-        function updateText(text){
+        var text = "Hello!";
+        function updateText(newText) {
+          text = newText;
+          renderCanvas();
+        }
+
+        function renderCanvas() {
           var canvas = document.getElementById('textCanvas');
           var ctx = canvas.getContext('2d');
           ctx.clearRect(0, 0, canvas.width, canvas.height);
           ctx.fillStyle = "#FFF"
           ctx.fillRect(0,0,canvas.width, canvas.height);
           var textToWrite = text;
-          var textSize = 12;
-          ctx.font = textSize+"pt monospace";
+          var textSize = 20;
+          ctx.font = textSize + "px " + font;
           ctx.fillStyle = "#000";
-          ctx.textAlign = 'center';
-          ctx.fillText(textToWrite, canvas.width/2, canvas.height/2);
+          ctx.textAlign = 'top';
+          ctx.wrapText(textToWrite, 10, textSize, canvas.width, textSize);
+          updateInputTexture();
         }
+
+        CanvasRenderingContext2D.prototype.wrapText = function (text, x, y, maxWidth, lineHeight) {
+
+          var lines = text.split("\n");
+
+          for (var i = 0; i < lines.length; i++) {
+
+            var words = lines[i].split(' ');
+            var line = '';
+
+            for (var n = 0; n < words.length; n++) {
+              var testLine = line + words[n] + ' ';
+              var metrics = this.measureText(testLine);
+              var testWidth = metrics.width;
+              if (testWidth > maxWidth && n > 0) {
+                  this.fillText(line, x, y);
+                  line = words[n] + ' ';
+                  y += lineHeight;
+              } else {
+                line = testLine;
+              }
+            }
+
+            this.fillText(line, x, y);
+            y += lineHeight;
+          }
+        };
 
       </script>
     <script id="VertexShader" type="x-shader/x-vertex">  
