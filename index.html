@@ -20,8 +20,8 @@
       
       <select id='shaderSelect' onChange='shaderChanger(this.value)'>
         <option value='2'>Jump Flooding Algorithm - Distvector</option>
-        <option value='4' selected='selected'>Anti aliasing</option>
-        <option value='3'>Paptex</option>
+        <option value='4'>Anti aliasing</option>
+        <option value='3' selected='selected'>Paptex</option>
       </select>
       
       <select id='fontSelect' onChange='updateFont(this.value)'>
@@ -29,6 +29,17 @@
         <option value='serif'>Serif</option>
         <option value='sans-serif'>Sans-serif</option>
         <option>Font4</option>
+      </select>
+
+      <select id='fontSizeSelect' onChange='updateFontSize(this.value)'>
+        <option value='18'>18</option>
+        <option value='19'>19</option>
+        <option value='20' selected='selected'>20</option>
+        <option value='21'>21</option>
+        <option value='22'>22</option>
+        <option value='24'>24</option>
+        <option value='25'>25</option>
+        <option value='26'>26</option>
       </select>
       
       <textarea id='inputTextArea'>Type something!</textarea>
@@ -46,9 +57,12 @@
           renderCanvas();
         }
 
+        var font;
+        var text;
         function setSelectedValues(){
           font = document.getElementById('fontSelect').value;
           text = document.getElementById('inputTextArea').value;
+          fontSize = document.getElementById('fontSizeSelect').value;
           var shaderVal = document.getElementById('shaderSelect').value;
           shaderChanger(shaderVal);
 
@@ -64,6 +78,11 @@
           renderCanvas();
         }
 
+        function updateFontSize(newSize) {
+          fontSize = newSize;
+          renderCanvas();
+        }
+
         function renderCanvas() {
           var canvas = document.getElementById('textCanvas');
           var ctx = canvas.getContext('2d');
@@ -71,8 +90,8 @@
           ctx.fillStyle = "#FFF"
           ctx.fillRect(0,0,canvas.width, canvas.height);
           var textToWrite = text;
-          var textSize = 20;
-          ctx.font = textSize + "px " + font;
+          var textSize = +fontSize;
+          ctx.font = fontSize + "px " + font;
           ctx.fillStyle = "#000";
           ctx.textAlign = 'top';
           ctx.wrapText(textToWrite, 10, textSize, canvas.width, textSize);
