@@ -137,13 +137,13 @@ function initTextures() {
     Textures[0] = gl.createTexture();
     Textures[0].image = new Image();
     Textures[0].image.src = "test.png";
-    Textures[0].image.onload = function () {
+    // Textures[0].image.onload = function () {
         handleLoadedTexture(Textures[0], Textures[0].image);
         //imWidth = Textures[0].image.width;
         //imHeight = Textures[0].image.height;
         //texw = imWidth;
         //texh = imHeight;
-    }
+    // }
 
     Textures[1] = gl.createTexture();
     createBufferTexture(Textures[1], imWidth, imHeight);

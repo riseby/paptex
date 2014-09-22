@@ -11,27 +11,27 @@
         <!-- Include CSS -->
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
-    <body onload="WebGL()">  
+    <body>  
       <canvas id="GLCanvas" width="512" height="512">  
             Your Browser Doesn't Support HTML5's Canvas.  
       </canvas>
       
       <canvas id="textCanvas" width="128" height="128"></canvas>
       
-      <select onChange='shaderChanger(this.value)'>
+      <select id='shaderSelect' onChange='shaderChanger(this.value)'>
         <option value='2'>Jump Flooding Algorithm - Distvector</option>
         <option value='4' selected='selected'>Anti aliasing</option>
         <option value='3'>Paptex</option>
       </select>
       
-      <select onChange='updateFont(this.value)'>
+      <select id='fontSelect' onChange='updateFont(this.value)'>
         <option value='monospace' selected='selected'>Monospace</option>
         <option value='serif'>Serif</option>
         <option value='sans-serif'>Sans-serif</option>
         <option>Font4</option>
       </select>
       
-      <textarea name='textureText'>Hello!</textarea>
+      <textarea id='inputTextArea'>Type something!</textarea>
       
       <script>
         $( 'textarea' ).keyup(function(event) { 
@@ -40,14 +40,25 @@
       </script>
 
       <script type="text/javascript">
-      
-        var font = "monospace";
+        function init(){
+          WebGL();
+          setSelectedValues();
+          renderCanvas();
+        }
+
+        function setSelectedValues(){
+          font = document.getElementById('fontSelect').value;
+          text = document.getElementById('inputTextArea').value;
+          var shaderVal = document.getElementById('shaderSelect').value;
+          shaderChanger(shaderVal);
+
+        }
+
         function updateFont(value) {
           font = value;
           renderCanvas();
         }
 
-        var text = "Hello!";
         function updateText(newText) {
           text = newText;
           renderCanvas();
@@ -94,8 +105,9 @@
             y += lineHeight;
           }
         };
-
+        window.onload = init;
       </script>
+
     <script id="VertexShader" type="x-shader/x-vertex">  
         attribute vec3 VertexPosition;
         attribute vec2 TextureCoord;
