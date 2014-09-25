@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -18,15 +19,16 @@
     </head>
     <body>
       <div class='container'>
-        <div class='page-header'>
+        <!-- <div class='page-header'>
           <h1>Paptex</h1>
-        </div>
-        <div class='row'>
+        </div> -->
+        <div class='row top40'>
           <div class='col-md-6'>
-            <div class="container-canvas">
+            <div class="container-canvas-512">
               <canvas id="GLCanvas" width="512" height="512">  
                     Your Browser Doesn't Support HTML5's Canvas.  
               </canvas>
+              <label for='GLCanvas'>Drag to move and scroll to zoom.</label>
             </div>
           </div>
           <div class='col-md-6'>
@@ -34,8 +36,8 @@
               <div class='col-md-4'>
                 <label for='shaderSelect'>Shader:</label>
                 <select class='form-control' id='shaderSelect' onChange='shaderChanger(this.value)'>
-                  <option value='2'>Jump Flooding Algorithm - Distvector</option>
-                  <option value='4'>Anti aliasing</option>
+                  <option value='2'>Distance field</option>
+                  <option value='4'>Anti-aliasing</option>
                   <option value='3' selected='selected'>Paptex</option>
                 </select>
               </div>
@@ -72,22 +74,53 @@
               </div>
               <div class='col-md-6'>
                 <label for='textCanvas'>Input texture:</label> 
-                <div class="container-canvas">
+                <div class="container-canvas-128">
                   <canvas  id="textCanvas" width="128" height="128"></canvas>
                 </div>
               </div> 
             </div>
             <div class='row top10'>
-              <div class='col-md-12'>
+              <div class='col-md-5'>
                 <div class="panel">
-                  <div class="panel-heading">About</div>
+                  <div class="panel-heading">
+                    <h4 class="panel-title">Shaders</h4>
+                  </div>
                   <div class="panel-body">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    <label for='shaderDistfield'>Distance field</label>
+                    <p id='shaderDistfield'>
+                      Visualization of distance field generated from
+                      the input texture.
+                    </p>
+                    <label for='shaderAA'>Anti-aliasing</label>
+                    <p id='shaderAA'>
+                      Distance-field rendered with anisotropic analytic anti-aliasing.
+                      More about it can be read <a href="http://contourtextures.wikidot.com/">here</a>.
+                    </p>
+                    <label for='shaderPaptex'>Paptex</label>
+                    <p id='shaderPaptex'>
+                      Distance-field rendered for paper-like appearance, using
+                      <a href="https://github.com/ashima/webgl-noise">simplex noise.</a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class='col-md-7'>
+                <div class="panel">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">About</h4>
+                  </div>
+                  <div class="panel-body">
+                    <p>
+                      This page generates paper-like images, created in 
+                      the course TNM084 Procedural imaging at Linköping University.
+                    </p>
+                    <p>
+                      Stefan Gustavsson's implementation of <a href='http://webstaff.itn.liu.se/~stegu/JFA/'>GPU jump flooding algorithm for Euclidean distance transform </a> ported to WebGL was used for generating a distance-field.
+                    </p>
+                    <p>
+                      Made by Emil Riseby.
+                    </p>
+
                   </div>
                 </div>
               </div>
@@ -95,6 +128,7 @@
           </div>
         </div>
       </div>
+
       <script>
         $( 'textarea' ).keyup(function(event) { 
           updateText(this.value);

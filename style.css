@@ -3,23 +3,31 @@ body {
 	color: #FFFFFF;
 }
 
-/*canvas { 
-	border: 1px solid black; 
-}*/
+canvas { 
+	border: 1px solid black;
+	position: relative;
+}
 
 textarea {
 	resize: none;
 }
 
-.container-canvas {
-    /* This could be done in one single declaration. See the extended sample. */
-    margin-right: auto;
-    margin-left: auto;
+.container-canvas-512 {
+    margin: 0 auto;
     width: 512px;
+}
+
+.container-canvas-128 {
+    margin: 0 auto;
+    width: 128px;
 }
 
 .top10 { 
 	margin-top:10px;
+}
+
+.top40 { 
+	margin-top:40px;
 }
 
 /* Remove rounded corners, temporary solution */
