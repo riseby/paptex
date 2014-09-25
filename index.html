@@ -10,21 +10,28 @@
         <!-- <script src="jquery.js"></script> -->
         <!-- Bootstrap -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <!-- Google fonts -->
+        <!-- <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Cutive"> -->
+        <link href='http://fonts.googleapis.com/css?family=Cutive|Cutive+Mono|Gloria+Hallelujah|Dancing+Script' rel='stylesheet' type='text/css'>
         <!-- Include CSS -->
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
       <div class='container'>
-        <h1>Paptex</h1>
+        <div class='page-header'>
+          <h1>Paptex</h1>
+        </div>
         <div class='row'>
           <div class='col-md-6'>
-            <canvas id="GLCanvas" width="512" height="512">  
-                  Your Browser Doesn't Support HTML5's Canvas.  
-            </canvas>
+            <div class="container-canvas">
+              <canvas id="GLCanvas" width="512" height="512">  
+                    Your Browser Doesn't Support HTML5's Canvas.  
+              </canvas>
+            </div>
           </div>
           <div class='col-md-6'>
             <div class='row'>
-              <div class='col-md-6'>
+              <div class='col-md-4'>
                 <label for='shaderSelect'>Shader:</label>
                 <select class='form-control' id='shaderSelect' onChange='shaderChanger(this.value)'>
                   <option value='2'>Jump Flooding Algorithm - Distvector</option>
@@ -38,9 +45,13 @@
                   <option value='monospace' selected='selected'>Monospace</option>
                   <option value='serif'>Serif</option>
                   <option value='sans-serif'>Sans-serif</option>
+                  <option value='Cutive'>Cutive</option>
+                  <option value='Cutive Mono'>Cutive Mono</option>
+                  <option value='Dancing Script'>Dancing Script</option>
+                  <option value='Gloria Hallelujah'>Gloria Hallelujah</option>
                 </select>
               </div>
-              <div class='col-md-2'>
+              <div class='col-md-4'>
                 <label for='fontSizeSelect'>Size px:</label>
                 <select class='form-control' id='fontSizeSelect' onChange='updateFontSize(this.value)'>
                   <option value='18'>18</option>
@@ -50,15 +61,37 @@
                   <option value='22'>22</option>
                   <option value='24'>24</option>
                   <option value='25'>25</option>
-                  <option value='26'>26</option>
+                  <option value='100'>100</option>
                 </select>
               </div>
             </div>  
-            <label for='inputTextArea'>Text:</label>
-            <textarea class='form-control' id='inputTextArea'>Type something!</textarea>
-            <label for='textCanvas'>Input texture:</label>
-            <canvas id="textCanvas" width="128" height="128"></canvas>
-            
+            <div class='row top10'>
+              <div class='col-md-6'>
+                <label for='inputTextArea'>Text:</label>
+                <textarea class='form-control' id='inputTextArea'>Type something!</textarea>
+              </div>
+              <div class='col-md-6'>
+                <label for='textCanvas'>Input texture:</label> 
+                <div class="container-canvas">
+                  <canvas  id="textCanvas" width="128" height="128"></canvas>
+                </div>
+              </div> 
+            </div>
+            <div class='row top10'>
+              <div class='col-md-12'>
+                <div class="panel">
+                  <div class="panel-heading">About</div>
+                  <div class="panel-body">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -1,12 +1,42 @@
 body {
+	background: #151515;
+	color: #FFFFFF;
+}
+
+/*canvas { 
+	border: 1px solid black; 
+}*/
+
+textarea {
+	resize: none;
+}
+
+.container-canvas {
+    /* This could be done in one single declaration. See the extended sample. */
+    margin-right: auto;
+    margin-left: auto;
+    width: 512px;
+}
+
+.top10 { 
+	margin-top:10px;
+}
+
+/* Remove rounded corners, temporary solution */
+.form-control {
+	border-radius: 0;
+}
+.panel {
+	border-radius: 0;
+}
+
+/*Custom panel*/
+.panel {
 	background: #333333;
 	color: #ffffff;
 }
 
-canvas { 
-	border: 1px solid black; 
-}
-
-textarea {
-	resize: none;
+.panel-body {
+	background: #FFFFFF;
+	color: #000000;
 }
